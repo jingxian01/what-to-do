@@ -22,9 +22,11 @@ import {
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 
-interface AccessibilityProps {}
+interface AccessibilityProps {
+  isMobile?: boolean;
+}
 
-export const Accessibility: React.FC<AccessibilityProps> = ({}) => {
+export const Accessibility: React.FC<AccessibilityProps> = ({ isMobile }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
   const handleChange = (value: number | string) => {
@@ -37,6 +39,7 @@ export const Accessibility: React.FC<AccessibilityProps> = ({}) => {
       <Button
         shadow="md"
         colorScheme="teal"
+        w={isMobile ? "100%" : ""}
         onClick={() => setShowModal(!showModal)}
       >
         Accessibility

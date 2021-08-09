@@ -22,9 +22,11 @@ import {
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 
-interface PriceProps {}
+interface PriceProps {
+  isMobile?: boolean;
+}
 
-export const Price: React.FC<PriceProps> = ({}) => {
+export const Price: React.FC<PriceProps> = ({ isMobile }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [value, setValue] = useState<number>(0);
   const handleChange = (value: number | string) => {
@@ -37,6 +39,7 @@ export const Price: React.FC<PriceProps> = ({}) => {
       <Button
         shadow="md"
         colorScheme="teal"
+        w={isMobile ? "100%" : ""}
         onClick={() => setShowModal(!showModal)}
       >
         Price

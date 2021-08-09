@@ -4,8 +4,10 @@ import {
   Heading,
   HStack,
   Link,
+  Stack,
   Tag,
   TagLabel,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
@@ -15,10 +17,13 @@ import { SiGithub, SiNextDotJs, SiTypescript } from "react-icons/si";
 import { BrowserHead } from "../components/BrowserHead";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { useWindowDimensions } from "../hooks/useWindowDimension";
 
 interface aboutProps {}
 
 const about: React.FC<aboutProps> = ({}) => {
+  const { width } = useWindowDimensions();
+
   return (
     <Container>
       <BrowserHead title="About" />
@@ -28,23 +33,43 @@ const about: React.FC<aboutProps> = ({}) => {
         <Box mt={4} mb={2} fontWeight="bold">
           Technologies:
         </Box>
-        <HStack>
-          <Tag size="lg" color="white" bg="linkedin.900" shadow="md">
-            <SiTypescript />
-            <TagLabel ml={2}>TypeScript</TagLabel>
-          </Tag>
-          <Tag size="lg" color="white" bg="cyan.400" shadow="md">
-            <RiReactjsLine />
-            <TagLabel ml={2}>React</TagLabel>
-          </Tag>
-          <Tag size="lg" color="white" bg="black" shadow="md">
-            <SiNextDotJs />
-            <TagLabel ml={2}>Next.js</TagLabel>
-          </Tag>
-          <Tag size="lg" bg="aquamarine" shadow="md">
-            <TagLabel>Chakra UI</TagLabel>
-          </Tag>
-        </HStack>
+        {width <= 768 ? (
+          <Stack>
+            <Tag size="lg" color="white" bg="linkedin.900" shadow="md" w="50%">
+              <SiTypescript />
+              <TagLabel ml={2}>TypeScript</TagLabel>
+            </Tag>
+            <Tag size="lg" color="white" bg="cyan.400" shadow="md" w="50%">
+              <RiReactjsLine />
+              <TagLabel ml={2}>React</TagLabel>
+            </Tag>
+            <Tag size="lg" color="white" bg="black" shadow="md" w="50%">
+              <SiNextDotJs />
+              <TagLabel ml={2}>Next.js</TagLabel>
+            </Tag>
+            <Tag size="lg" bg="aquamarine" shadow="md" w="50%">
+              <TagLabel>Chakra UI</TagLabel>
+            </Tag>
+          </Stack>
+        ) : (
+          <HStack>
+            <Tag size="lg" color="white" bg="linkedin.900" shadow="md">
+              <SiTypescript />
+              <TagLabel ml={2}>TypeScript</TagLabel>
+            </Tag>
+            <Tag size="lg" color="white" bg="cyan.400" shadow="md">
+              <RiReactjsLine />
+              <TagLabel ml={2}>React</TagLabel>
+            </Tag>
+            <Tag size="lg" color="white" bg="black" shadow="md">
+              <SiNextDotJs />
+              <TagLabel ml={2}>Next.js</TagLabel>
+            </Tag>
+            <Tag size="lg" bg="aquamarine" shadow="md">
+              <TagLabel>Chakra UI</TagLabel>
+            </Tag>
+          </HStack>
+        )}
       </Box>
       <Box mb={4}>
         <Box mt={4} fontWeight="bold">

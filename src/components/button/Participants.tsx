@@ -22,9 +22,11 @@ import {
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 
-interface ParticipantsProps {}
+interface ParticipantsProps {
+  isMobile?: boolean;
+}
 
-export const Participants: React.FC<ParticipantsProps> = ({}) => {
+export const Participants: React.FC<ParticipantsProps> = ({ isMobile }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [value, setValue] = useState<number>(1);
   const handleChange = (value: number | string) => {
@@ -37,6 +39,7 @@ export const Participants: React.FC<ParticipantsProps> = ({}) => {
       <Button
         shadow="md"
         colorScheme="teal"
+        w={isMobile ? "100%" : ""}
         onClick={() => setShowModal(!showModal)}
       >
         Participants
