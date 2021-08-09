@@ -6,4 +6,5 @@ export interface DataType {
   participants: number;
   price: number;
   type: string;
+  error?: string;
 }

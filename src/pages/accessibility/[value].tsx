@@ -1,20 +1,24 @@
 import { Button, HStack, Spacer } from "@chakra-ui/react";
 import { InferGetServerSidePropsType } from "next";
-import NextLink from "next/link";
 import React from "react";
+import { Activity } from "../../components/Activity";
+import { BrowserHead } from "../../components/BrowserHead";
+import { Header } from "../../components/Header";
+import { DataType } from "../../utils/DataType";
+import NextLink from "next/link";
 import { BsChevronLeft } from "react-icons/bs";
-import { Activity } from "../components/Activity";
-import { BrowserHead } from "../components/BrowserHead";
-import { Container } from "../components/Container";
-import { Header } from "../components/Header";
-import { DataType } from "../utils/DataType";
+import { useRouter } from "next/dist/client/router";
+import { Container } from "../../components/Container";
 
-const random = ({
+const accessibility = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter();
+  const { value } = router.query;
+
   return (
     <Container>
-      <BrowserHead title="Random" />
+      <BrowserHead title="Accessibility" />
       <Header />
       <Activity data={data} />
       <HStack mt={10}>
@@ -24,7 +28,7 @@ const random = ({
           </Button>
         </NextLink>
         <Spacer />
-        <NextLink href="/random">
+        <NextLink href={`/accessibility/${value}`}>
           <Button shadow="md" colorScheme="teal">
             Another activity
           </Button>
@@ -34,15 +38,19 @@ const random = ({
   );
 };
 
-export default random;
-
-export async function getServerSideProps() {
-  const req = await fetch("http://www.boredapi.com/api/activity/", {
-    method: "GET",
-  });
+export async function getServerSideProps({ params }) {
+  const value = params.value;
+  const req = await fetch(
+    `http://www.boredapi.com/api/activity?accessibility=${value}`,
+    {
+      method: "GET",
+    }
+  );
   const data: DataType = await req.json();
 
   return {
     props: { data }, // will be passed to the page component as props
   };
 }
+
+export default accessibility;
